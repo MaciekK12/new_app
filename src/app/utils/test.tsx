@@ -19,9 +19,11 @@ const MainComponent = () => {
                 if (!response.ok) {
                     throw new Error('Błąd sieciowy lub serwera');
                 }
-                const result = await response.json();
+                const data = await response.json();
 
-                setUsers(result);
+                console.log("Dane użytkowników z API:", data);
+
+                setUsers(data);
             } catch (error) {
                 console.error("Błąd podczas pobierania danych: ", error);
             }
@@ -32,14 +34,7 @@ const MainComponent = () => {
 
     return (
         <div>
-            {users.map(user => (
-                <div key={user.id}>
-                    <p>Imię: {user.name}</p>
-                    <p>Email: {user.email}</p>
-                    <p>Typ: {user.type}</p>
-                    <p>Data utworzenia: {new Date(user.created_at).toLocaleDateString()}</p>
-                </div>
-            ))}
+            {/* Renderowanie użytkowników itd. */}
         </div>
     );
 };

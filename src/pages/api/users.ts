@@ -3,11 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 // Definiowanie typu dla dokumentów użytkownika
 type UserType = {
-    id: string;
-    created_at: Date;
+    _id: string;
     name: string;
-    type: string;
     email: string;
+    password: string;
 };
 
 // Definiowanie globalnego typu dla klienta MongoDB i obietnicy
@@ -39,7 +38,7 @@ if (process.env.NODE_ENV === "development") {
 // Funkcja pomocnicza do uzyskania kolekcji z bazy danych
 async function getCollection(): Promise<Collection<UserType>> {
     const client = await clientPromise;
-    const db: Db = client.db('nazwa_bazy_danych'); // Zmień na nazwę Twojej bazy danych
+    const db: Db = client.db('sample_mflix'); // Zmień na nazwę Twojej bazy danych
     return db.collection<UserType>('users');
 }
 
