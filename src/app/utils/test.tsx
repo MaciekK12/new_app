@@ -2,10 +2,8 @@
 import React, { useEffect, useState } from 'react';
 
 type UserType = {
-    id: string;
-    created_at: Date;
+    _id: string;
     name: string;
-    type: string;
     email: string;
 };
 
@@ -19,10 +17,10 @@ const MainComponent = () => {
                 throw new Error('Błąd sieciowy lub serwera');
             }
             const data = await response.json();
-
             console.log("Dane użytkowników z API:", data);
 
-            setUsers(data);
+            // Zakładając, że odpowiedź z serwera jest w formacie { users: [...user data] }
+            setUsers(data.users);
         } catch (error) {
             console.error("Błąd podczas pobierania danych: ", error);
         }
@@ -34,7 +32,11 @@ const MainComponent = () => {
 
     return (
         <div>
-            {/* Renderowanie użytkowników itd. */}
+            {users.map((user) => (
+                <div key={user._id}>
+                    {user.name} - {user.email}
+                </div>
+            ))}
         </div>
     );
 };

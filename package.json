@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "5.9.0",
     "@vercel/speed-insights": "^1.0.7",
     "jest": "^29.7.0",
     "mongodb": "^6.3.0",
