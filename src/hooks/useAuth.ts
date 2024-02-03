@@ -1,56 +1,61 @@
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+// hooks/useAuth.ts
+import { useMutation, useQueryClient } from 'react-query';
 
 interface Credentials {
-    name: string;
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
-interface User {
-    token: string;
+interface LoginResponse {
+  token: string;
 }
 
-async function loginUser(credentials: Credentials): Promise<User> {
+interface ErrorResponse {
+  message: string;
+}
+
+const loginUser = async (credentials: Credentials): Promise<LoginResponse> => {
   const response = await fetch('/api/auth/login', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),
   });
-
   if (!response.ok) {
-    throw new Error('Problem z logowaniem');
+    const errorResponse: ErrorResponse = await response.json();
+    throw new Error(errorResponse.message || 'Problem with login');
   }
+  return response.json();
+};
 
-  return await response.json();
-}
-
-function getUserFromLocalStorage(): User | null {
-  const token = localStorage.getItem('token');
-  if (token) {
-    return { token };
+const registerUser = async (credentials: Credentials): Promise<void> => {
+  const response = await fetch('/api/auth/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(credentials),
+  });
+  if (!response.ok) {
+    const errorResponse: ErrorResponse = await response.json();
+    throw new Error(errorResponse.message || 'Problem with registration');
   }
-  return null;
-}
+};
 
 export function useAuth() {
   const queryClient = useQueryClient();
 
-  const { data: user, status } = useQuery<User | null, Error>('auth', getUserFromLocalStorage, {
-    staleTime: Infinity,
-    cacheTime: 0,
-  });
-
-  const { mutate: login } = useMutation<User, Error, Credentials>(loginUser, {
+  // Logowanie użytkownika
+  const login = useMutation<LoginResponse, Error, Credentials>(loginUser, {
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
-      queryClient.setQueryData('auth', data);
-    },
-    onError: (error) => {
-      console.error('Błąd logowania', error);
+      queryClient.invalidateQueries('user');
     },
   });
 
-  return { user, status, login };
+  // Rejestracja użytkownika (przykład użycia, jeśli jest potrzebny)
+  const register = useMutation<void, Error, Credentials>(registerUser, {
+    onSuccess: () => {
+      // Możesz tutaj dodać logikę po pomyślnej rejestracji, np. przekierowanie lub wyświetlenie komunikatu
+    },
+  });
+
+  return { login, register };
 }
