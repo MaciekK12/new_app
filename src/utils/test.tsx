@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Button } from '@nextui-org/react';
 
 type UserType = {
     _id: string;
@@ -33,7 +32,6 @@ const MainComponent = () => {
 
     return (
         <div>
-            <Button>Click me</Button>
             {users?.map((user: UserType) => (
                 <div key={user._id}>
                     {user.name} - {user.email}

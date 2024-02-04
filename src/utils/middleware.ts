@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { verifyToken } from './verifyToken';
+import { verifyToken } from '../utils/verifyToken'; // Załóżmy, że tutaj znajduje się Twoja logika weryfikacji tokena
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get('token');
@@ -11,6 +11,3 @@ export function middleware(req: NextRequest) {
 
   return NextResponse.next();
 }
-
-
-

@@ -1,61 +1,15 @@
-// hooks/useAuth.ts
-import { useMutation, useQueryClient } from 'react-query';
+import { useSession, signIn, signOut } from "next-auth/react";
 
-interface Credentials {
-  email: string;
-  password: string;
-}
+const useAuth = () => {
+  const { data: session, status } = useSession();
 
-interface LoginResponse {
-  token: string;
-}
+  const login = () => signIn(); // Możesz tutaj określić dostawcę
+  const logout = () => signOut();
 
-interface ErrorResponse {
-  message: string;
-}
+  const isLoading = status === "loading";
+  const isAuthenticated = status === "authenticated";
 
-const loginUser = async (credentials: Credentials): Promise<LoginResponse> => {
-  const response = await fetch('/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials),
-  });
-  if (!response.ok) {
-    const errorResponse: ErrorResponse = await response.json();
-    throw new Error(errorResponse.message || 'Problem with login');
-  }
-  return response.json();
+  return { session, login, logout, isLoading, isAuthenticated };
 };
 
-const registerUser = async (credentials: Credentials): Promise<void> => {
-  const response = await fetch('/api/auth/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials),
-  });
-  if (!response.ok) {
-    const errorResponse: ErrorResponse = await response.json();
-    throw new Error(errorResponse.message || 'Problem with registration');
-  }
-};
-
-export function useAuth() {
-  const queryClient = useQueryClient();
-
-  // Logowanie użytkownika
-  const login = useMutation<LoginResponse, Error, Credentials>(loginUser, {
-    onSuccess: (data) => {
-      localStorage.setItem('token', data.token);
-      queryClient.invalidateQueries('user');
-    },
-  });
-
-  // Rejestracja użytkownika (przykład użycia, jeśli jest potrzebny)
-  const register = useMutation<void, Error, Credentials>(registerUser, {
-    onSuccess: () => {
-      // Możesz tutaj dodać logikę po pomyślnej rejestracji, np. przekierowanie lub wyświetlenie komunikatu
-    },
-  });
-
-  return { login, register };
-}
+export default useAuth;

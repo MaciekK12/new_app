@@ -23,18 +23,14 @@ export default async function handler(
   }
 
   const hashedPassword = createHash('sha256').update(password).digest('hex');
+  
   if (hashedPassword !== existingUser.password) {
     return res.status(401).json({ message: 'Invalid password' });
   }
 
-  // Zakładając, że funkcja generująca token wymaga ID użytkownika jako argument
-  const token: string | null = generateToken(existingUser); // Załóżmy, że 'existingUser.id' jest prawidłowym argumentem
-
-  // Przed zwróceniem tokena, możesz go zweryfikować używając funkcji verifyToken
-  // Zakładając, że verifyToken wymaga tokena jako argumentu
+  const token: string | null = generateToken(existingUser); // czy przekazywac wszystkie dane czy wybrane?
 
   if (token === null) {
-    // Jeśli token jest null, zwróć błąd
     return res.status(500).json({ message: 'Failed to generate token' });
   }
 
