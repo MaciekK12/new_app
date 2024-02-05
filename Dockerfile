@@ -1,10 +1,12 @@
 FROM node:21.6.1
 
+RUN npm install -g pnpm
+
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN pnpm install
+RUN pnpm i
 
 COPY . .
 
