@@ -11,8 +11,8 @@ const queryClient = new QueryClient();
 function Home({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Link href='/login'>LOGIN</Link>
-      <MainComponent />
+
+      {/* <MainComponent /> */}
       {/* <Component {...pageProps} /> */}
       <ReactQueryDevtools />
     </QueryClientProvider>
