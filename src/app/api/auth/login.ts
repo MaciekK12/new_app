@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createHash } from 'crypto';
-import { verifyToken } from '../../../utils/verifyToken';
-import { generateToken } from '@/utils/generateToken';
+import { verifyToken } from '../../../lib/verifyToken';
+import { generateToken } from '@/lib/generateToken';
 
 const prisma = new PrismaClient();
 
