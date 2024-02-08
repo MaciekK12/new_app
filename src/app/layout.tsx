@@ -3,7 +3,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import AppNavbar from '@/components/AppNavbar';
+import AppNavbar from '@/components';
 
 const inter = Inter({ subsets: ['latin'] });
 
