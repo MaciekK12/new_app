@@ -2,7 +2,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools'; // Opcjonalne, do debugowania
 import type { AppProps } from 'next/app'; // do rozkminy
-import MainComponent from '../utils/test'
+import MainComponent from '../lib/test'
 import { Link } from '@nextui-org/react';
 import './globals.css'
 

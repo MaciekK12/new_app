@@ -1,14 +1,8 @@
 import { FormEvent } from 'react'
 import { useRouter } from 'next/router'
-import { signIn } from 'next-auth/react'
 
-export const LoginPage = () => {
+export default function LoginPage() {
     const router = useRouter()
-
-    const handleGithubLogin = async () => {
-        "use server"
-        await signIn("github")
-    }
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -31,17 +25,10 @@ export const LoginPage = () => {
     }
 
     return (
-        <div>
-            <form action={handleGithubLogin}>
-                <button>Login with GITHUB</button>
-            </form>
-            <form onSubmit={handleSubmit}>
-                <input type="email" name="email" placeholder="Email" required />
-                <input type="password" name="password" placeholder="Password" required />
-                <button type="submit">Login</button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <input type="email" name="email" placeholder="Email" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
     )
 }
-
-export default LoginPage
