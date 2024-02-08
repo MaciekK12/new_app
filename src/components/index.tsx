@@ -3,10 +3,10 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@n
 
 export default function AppNavbar() {
     return (
-        <>
-            <Navbar>
+        <div className="w-full bg-dark-900 text-black fixed top-0 z-50">
+            <Navbar className="bg-dark-800">
                 <NavbarBrand>
-                    <p className="font-bold text-inherit">TU JAKIES LOGO LOL?</p>
+                    <p className="font-bold text-black">TU JAKIES LOGO LOL?</p>
                 </NavbarBrand>
                 <NavbarContent className="hidden sm:flex gap-4" justify="center">
                     <NavbarItem>
@@ -31,6 +31,6 @@ export default function AppNavbar() {
                     </NavbarItem>
                 </NavbarContent>
             </Navbar>
-        </>
+        </div>
     );
 }
