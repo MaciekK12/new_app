@@ -12,7 +12,6 @@ const queryClient = new QueryClient();
 function Home({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-
       {/* <MainComponent /> */}
       {/* <Component {...pageProps} /> */}
       <AppNavbar />
