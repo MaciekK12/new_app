@@ -5,7 +5,6 @@ import type { AppProps } from 'next/app'; // do rozkminy
 import MainComponent from '../lib/test'
 import { Link } from '@nextui-org/react';
 import './globals.css'
-import AppNavbar from '@/components';
 
 const queryClient = new QueryClient();
 
@@ -14,7 +13,6 @@ function Home({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       {/* <MainComponent /> */}
       {/* <Component {...pageProps} /> */}
-      <AppNavbar />
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

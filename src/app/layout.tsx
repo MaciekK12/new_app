@@ -3,6 +3,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import AppNavbar from '@/components/navbar/Navbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
     // <NextUIProvider>
     <html lang="en">
       <body className="min-h-screen flex flex-col justify-center items-center bg-dark-900 text-black p-24">
+        <AppNavbar />
         {children}
       </body>
     </html>
