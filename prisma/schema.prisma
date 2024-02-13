@@ -11,10 +11,26 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
   email    String //unique pozniej
   name     String
   password String
+  auctions Auction[]
 
   @@map("users")
+}
+
+model Auction {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  description   String
+  typeOfAuction String
+  purchaseType  String
+  price         String
+  participants  String
+
+  quantity String @default("1")
+  owner    String @db.ObjectId
+  user     User   @relation(fields: [owner], references: [id])
+
+  @@map("auctions")
 }

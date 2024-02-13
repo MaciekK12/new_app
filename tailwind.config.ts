@@ -1,7 +1,5 @@
 // Importuj typ Config z tailwindcss dla wsparcia TypeScript
 import type { Config } from 'tailwindcss';
-
-// Importuj plugin NextUI
 import { nextui } from '@nextui-org/react';
 
 const config: Config = {
