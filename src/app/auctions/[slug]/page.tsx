@@ -1,4 +1,4 @@
-export default function singleAuciontPage({ params }: { params: object }) {
+export default function singleAuciontPage({ params }: { params: { slug: string[] } }) {
     console.log(params)
     return (
         <>
